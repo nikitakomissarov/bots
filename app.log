@@ -1,0 +1,168 @@
+2023-02-27 22:42:26,705 - loggerinfo - INFO - here we go
+2023-02-27 22:44:21,273 - loggerinfo - INFO - Session path: projects/bothouse-372617/agent/sessions/1429295639
+
+2023-02-27 22:44:32,667 - loggerinfo - INFO - ====================
+2023-02-27 22:44:32,667 - loggerinfo - INFO - Query text: привет
+2023-02-27 22:44:32,667 - loggerinfo - INFO - Detected intent: Default Welcome Intent (confidence: 1.0)
+
+2023-02-27 22:45:34,765 - loggerinfo - INFO - Session path: projects/bothouse-372617/agent/sessions/1429295639
+
+2023-02-27 22:45:35,992 - loggerinfo - INFO - ====================
+2023-02-27 22:45:35,992 - loggerinfo - INFO - Query text: ау
+2023-02-27 22:45:35,992 - loggerinfo - INFO - Detected intent:  (confidence: 0.0)
+
+2023-02-27 22:47:12,385 - loggerinfo - INFO - here we go
+2023-02-27 22:47:22,338 - loggerinfo - INFO - Session path: projects/bothouse-372617/agent/sessions/1429295639
+
+2023-02-27 22:47:23,164 - loggerinfo - INFO - ====================
+2023-02-27 22:47:23,164 - loggerinfo - INFO - Query text: ау
+2023-02-27 22:47:23,164 - loggerinfo - INFO - Detected intent:  (confidence: 0.0)
+
+2023-02-27 22:47:23,453 - loggererror - ERROR - Message text is empty
+Traceback (most recent call last):
+  File "C:\Users\big shot\Documents\GitHub\echo_bot\main.py", line 52, in echo
+    await update.message.reply_text(google_reply)
+  File "C:\Users\big shot\Documents\GitHub\echo_bot\venv\lib\site-packages\telegram\_message.py", line 1006, in reply_text
+    return await self.get_bot().send_message(
+  File "C:\Users\big shot\Documents\GitHub\echo_bot\venv\lib\site-packages\telegram\ext\_extbot.py", line 2596, in send_message
+    return await super().send_message(
+  File "C:\Users\big shot\Documents\GitHub\echo_bot\venv\lib\site-packages\telegram\_bot.py", line 334, in decorator
+    result = await func(*args, **kwargs)  # skipcq: PYL-E1102
+  File "C:\Users\big shot\Documents\GitHub\echo_bot\venv\lib\site-packages\telegram\_bot.py", line 767, in send_message
+    return await self._send_message(
+  File "C:\Users\big shot\Documents\GitHub\echo_bot\venv\lib\site-packages\telegram\ext\_extbot.py", line 488, in _send_message
+    result = await super()._send_message(
+  File "C:\Users\big shot\Documents\GitHub\echo_bot\venv\lib\site-packages\telegram\_bot.py", line 515, in _send_message
+    result = await self._post(
+  File "C:\Users\big shot\Documents\GitHub\echo_bot\venv\lib\site-packages\telegram\_bot.py", line 422, in _post
+    return await self._do_post(
+  File "C:\Users\big shot\Documents\GitHub\echo_bot\venv\lib\site-packages\telegram\ext\_extbot.py", line 306, in _do_post
+    return await super()._do_post(
+  File "C:\Users\big shot\Documents\GitHub\echo_bot\venv\lib\site-packages\telegram\_bot.py", line 453, in _do_post
+    return await request.post(
+  File "C:\Users\big shot\Documents\GitHub\echo_bot\venv\lib\site-packages\telegram\request\_baserequest.py", line 165, in post
+    result = await self._request_wrapper(
+  File "C:\Users\big shot\Documents\GitHub\echo_bot\venv\lib\site-packages\telegram\request\_baserequest.py", line 328, in _request_wrapper
+    raise BadRequest(message)
+telegram.error.BadRequest: Message text is empty
+2023-02-27 22:48:35,955 - loggerinfo - INFO - Session path: projects/bothouse-372617/agent/sessions/1429295639
+
+2023-02-27 22:48:55,321 - loggerinfo - INFO - ====================
+2023-02-27 22:48:55,321 - loggerinfo - INFO - Query text: привет
+2023-02-27 22:48:55,321 - loggerinfo - INFO - Detected intent: Default Welcome Intent (confidence: 1.0)
+
+2023-02-27 22:59:03,806 - loggerinfo - INFO - here we go
+2023-02-27 22:59:54,192 - loggerinfo - INFO - Session path: projects/bothouse-372617/agent/sessions/1429295639
+
+2023-02-27 23:00:05,496 - loggerinfo - INFO - ====================
+2023-02-27 23:00:05,496 - loggerinfo - INFO - Query text: ау
+2023-02-27 23:00:05,496 - loggerinfo - INFO - Detected intent:  (confidence: 0.0)
+
+2023-02-27 23:00:49,150 - loggerinfo - INFO - here we go
+2023-02-27 23:00:52,487 - loggerinfo - INFO - Session path: projects/bothouse-372617/agent/sessions/1429295639
+
+2023-02-27 23:01:11,835 - loggerinfo - INFO - ====================
+2023-02-27 23:01:11,835 - loggerinfo - INFO - Query text: fe
+2023-02-27 23:01:11,835 - loggerinfo - INFO - Detected intent:  (confidence: 0.0)
+
+2023-02-27 23:01:30,238 - loggerinfo - INFO - here we go
+2023-02-27 23:01:46,815 - loggerinfo - INFO - Session path: projects/bothouse-372617/agent/sessions/1429295639
+
+2023-02-27 23:01:47,728 - loggerinfo - INFO - ====================
+2023-02-27 23:01:47,728 - loggerinfo - INFO - Query text: ау
+2023-02-27 23:01:47,728 - loggerinfo - INFO - Detected intent:  (confidence: 0.0)
+
+2023-02-27 23:26:48,597 - loggerinfo - INFO - Session path: projects/bothouse-372617/agent/sessions/1429295639
+
+2023-02-27 23:27:02,099 - loggerinfo - INFO - ====================
+2023-02-27 23:27:02,099 - loggerinfo - INFO - Query text: dfsd
+2023-02-27 23:27:02,099 - loggerinfo - INFO - Detected intent:  (confidence: 0.0)
+
+2023-02-27 23:48:24,681 - loggerinfo - INFO - here we go
+2023-02-27 23:49:14,632 - loggerinfo - INFO - Session path: projects/bothouse-372617/agent/sessions/1429295639
+
+2023-02-27 23:49:15,745 - loggerinfo - INFO - ====================
+2023-02-27 23:49:15,745 - loggerinfo - INFO - Query text: ау
+2023-02-27 23:49:15,745 - loggerinfo - INFO - Detected intent:  (confidence: 0.0)
+
+2023-02-27 23:56:40,509 - loggerinfo - INFO - Session path: projects/bothouse-372617/agent/sessions/1429295639
+
+2023-02-28 00:11:36,238 - loggerinfo - INFO - here we go
+2023-02-28 00:12:17,867 - loggerinfo - INFO - Session path: projects/bothouse-372617/agent/sessions/1429295639
+
+2023-02-28 00:19:36,849 - loggerinfo - INFO - here we go
+2023-02-28 00:19:50,752 - loggerinfo - INFO - Session path: projects/bothouse-372617/agent/sessions/1429295639
+
+2023-02-28 00:22:49,088 - loggerinfo - INFO - here we go
+2023-02-28 00:23:39,302 - loggerinfo - INFO - Session path: projects/bothouse-372617/agent/sessions/1429295639
+
+2023-02-28 00:29:21,431 - loggerinfo - INFO - here we go
+2023-02-28 00:29:31,709 - loggerinfo - INFO - Session path: projects/bothouse-372617/agent/sessions/1429295639
+
+2023-02-28 00:32:32,732 - loggerinfo - INFO - here we go
+2023-02-28 00:35:41,860 - loggerinfo - INFO - here we go
+2023-02-28 00:36:41,866 - loggerinfo - INFO - Session path: projects/bothouse-372617/agent/sessions/1429295639
+
+2023-02-28 00:42:47,393 - loggerinfo - INFO - here we go
+2023-02-28 00:42:51,566 - loggerinfo - INFO - Session path: projects/bothouse-372617/agent/sessions/1429295639
+
+2023-02-28 00:47:57,944 - loggerinfo - INFO - here we go
+2023-02-28 00:48:48,625 - loggerinfo - INFO - Session path: projects/bothouse-372617/agent/sessions/1429295639
+
+2023-02-28 00:48:51,072 - loggerinfo - INFO - Session path: projects/bothouse-372617/agent/sessions/1429295639
+
+2023-02-28 01:04:32,811 - loggerinfo - INFO - here we go
+2023-02-28 01:06:37,213 - loggerinfo - INFO - Session path: projects/bothouse-372617/agent/sessions/1429295639
+
+2023-02-28 01:12:50,727 - loggerinfo - INFO - here we go
+2023-02-28 01:12:59,591 - loggerinfo - INFO - Session path: projects/bothouse-372617/agent/sessions/1429295639
+
+2023-02-28 01:40:57,152 - loggerinfo - INFO - here we go
+2023-02-28 01:41:10,241 - loggerinfo - INFO - Session path: projects/bothouse-372617/agent/sessions/1429295639
+
+2023-02-28 01:44:07,827 - loggerinfo - INFO - here we go
+2023-02-28 01:44:35,840 - loggerinfo - INFO - Session path: projects/bothouse-372617/agent/sessions/1429295639
+
+2023-02-28 01:44:36,725 - loggerinfo - INFO - ====================
+2023-02-28 01:44:36,725 - loggerinfo - INFO - Query text: ку
+2023-02-28 01:44:36,725 - loggerinfo - INFO - Detected intent: Default Welcome Intent (confidence: 1.0)
+
+2023-02-28 01:45:10,840 - loggerinfo - INFO - Session path: projects/bothouse-372617/agent/sessions/1429295639
+
+2023-02-28 01:45:11,711 - loggerinfo - INFO - ====================
+2023-02-28 01:45:11,711 - loggerinfo - INFO - Query text: здарова\
+2023-02-28 01:45:11,711 - loggerinfo - INFO - Detected intent: Default Welcome Intent (confidence: 1.0)
+
+2023-02-28 01:45:20,295 - loggerinfo - INFO - Session path: projects/bothouse-372617/agent/sessions/1429295639
+
+2023-02-28 01:45:21,146 - loggerinfo - INFO - ====================
+2023-02-28 01:45:21,147 - loggerinfo - INFO - Query text: здарова
+2023-02-28 01:45:21,147 - loggerinfo - INFO - Detected intent: Default Welcome Intent (confidence: 1.0)
+
+2023-02-28 01:45:26,202 - loggerinfo - INFO - Session path: projects/bothouse-372617/agent/sessions/1429295639
+
+2023-02-28 01:45:26,964 - loggerinfo - INFO - ====================
+2023-02-28 01:45:26,964 - loggerinfo - INFO - Query text: ку
+2023-02-28 01:45:26,964 - loggerinfo - INFO - Detected intent: Default Welcome Intent (confidence: 1.0)
+
+2023-03-01 01:18:10,359 - loggerinfo - INFO - here we go
+2023-03-01 01:18:24,464 - loggerinfo - INFO - Session path: projects/bothouse-372617/agent/sessions/1429295639
+
+2023-03-01 01:18:25,738 - loggerinfo - INFO - ====================
+2023-03-01 01:18:25,738 - loggerinfo - INFO - Query text: db
+2023-03-01 01:18:25,738 - loggerinfo - INFO - Detected intent:  (confidence: 0.0)
+
+2023-03-01 01:19:30,903 - loggerinfo - INFO - here we go
+2023-03-01 01:19:35,584 - loggerinfo - INFO - Session path: projects/bothouse-372617/agent/sessions/1429295639
+
+2023-03-01 01:19:36,547 - loggerinfo - INFO - ====================
+2023-03-01 01:19:36,547 - loggerinfo - INFO - Query text: dsf
+2023-03-01 01:19:36,547 - loggerinfo - INFO - Detected intent:  (confidence: 0.0)
+
+2023-03-01 01:19:44,582 - loggerinfo - INFO - Session path: projects/bothouse-372617/agent/sessions/1429295639
+
+2023-03-01 01:19:45,456 - loggerinfo - INFO - ====================
+2023-03-01 01:19:45,457 - loggerinfo - INFO - Query text: fsdf
+2023-03-01 01:19:45,457 - loggerinfo - INFO - Detected intent:  (confidence: 0.0)
+
+2023-03-01 01:20:26,004 - loggerinfo - INFO - here we go
