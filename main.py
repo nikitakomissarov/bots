@@ -1,8 +1,7 @@
-
+import json
 from telegram.ext import Application, CommandHandler, MessageHandler, filters
 from dotenv import dotenv_values
 from google.cloud import dialogflow
-import json
 import logging
 from logging.handlers import TimedRotatingFileHandler
 
@@ -10,15 +9,22 @@ config = dotenv_values('.env')
 
 TOKEN = config['TOKEN']
 SESSION_ID = config['CHAT_ID']
-GOOGLE_APPLICATION_CREDENTIALS = open(config['GOOGLE'])
+GOOGLE_APPLICATION_CREDENTIALS = config['GOOGLE_APPLICATION_CREDENTIALS']
+TRAINING_PHRASES = config['TRAINING_PHRASES']
 
-credentials = json.loads(GOOGLE_APPLICATION_CREDENTIALS.read())
+with open(TRAINING_PHRASES, "r") as phrases_file:
+  training_phrases_parts = phrases_file.read()
+  training_phrases_parts = json.loads(training_phrases_parts)
+  print(training_phrases_parts)
+
+with open(GOOGLE_APPLICATION_CREDENTIALS, "r") as my_file:
+    credentials = my_file.read()
+    credentials = json.loads(credentials)
 
 logger_info = logging.getLogger('loggerinfo')
 logger_error = logging.getLogger("loggererror")
 handler = TimedRotatingFileHandler("app.log", when='D', interval=30, backupCount=1)
 handler_format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-
 
 def detect_intent_texts(project_id, session_id, texts, language_code):
     session_client = dialogflow.SessionsClient()
