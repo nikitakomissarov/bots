@@ -46,8 +46,13 @@ def detect_intent_texts(project_id, session_id, texts, language_code):
             response.query_result.intent_detection_confidence,
         ))
 
-    answer = (format(response.query_result.fulfillment_text))
-    return answer
+    if response.query_result.intent.is_fallback is True \
+            or response.query_result.intent_detection_confidence == 0:
+        logger_error.error('Нулевое совпадение')
+        return None
+    else:
+        answer = (format(response.query_result.fulfillment_text))
+        return answer
 
 async def start(update, context):
     await update.message.reply_text("The bot's been started")
@@ -58,8 +63,7 @@ async def echo(update, context):
         text = update.message.text
         session_id = update.message.chat['id']
         google_reply = detect_intent_texts(credentials['quota_project_id'], session_id, text, language_code)
-        print(google_reply)
-        if google_reply != "":
+        if google_reply != None:
             google_reply = google_reply
         else:
             google_reply = 'Я вас не понимаю'
