@@ -15,7 +15,7 @@ TRAINING_PHRASES = config['TRAINING_PHRASES']
 with open(TRAINING_PHRASES, "r") as phrases_file:
   training_phrases_parts = phrases_file.read()
   training_phrases_parts = json.loads(training_phrases_parts)
-  print(training_phrases_parts)
+
 
 with open(GOOGLE_APPLICATION_CREDENTIALS, "r") as my_file:
     credentials = my_file.read()
