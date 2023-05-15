@@ -74,20 +74,6 @@ def detect_intent_texts(project_id, session_id, texts, language_code):
     else:
         answer = (format(response.query_result.fulfillment_text))
         return answer
-const getLevelFromScore = (score) => {
-    const score50 = 50 * 50
-    const score100 = score50 + 100 * 50
-    const score500 = score100 + 200 * 400
-    if (score > score500) {
-        return Math.ceil((score -score500) / 250) + 500
-    } else if (score > score100) {
-        return Math.ceil((score -score100) / 200) + 100
-    } else if (score > score50) {
-        return Math.ceil((score -score50) /100) + 50
-    } else {
-        return Math.ceil(score /50)
-    }
-}
 
 def echo(event, vk):
     try:
