@@ -21,6 +21,7 @@ with open(GOOGLE_APPLICATION_CREDENTIALS, "r") as my_file:
     credentials = my_file.read()
     credentials = json.loads(credentials)
 
+logging.basicConfig(level=logging.INFO)
 logger_info = logging.getLogger('loggerinfo')
 logger_error = logging.getLogger("loggererror")
 handler = TimedRotatingFileHandler("app.log", when='D', interval=30, backupCount=1)
@@ -87,9 +88,11 @@ def main():
             application = Application.builder().token(TOKEN).build()
 
             application.add_handler(CommandHandler('start', start))
+
             application.add_handler(MessageHandler(filters.TEXT, echo))
 
             application.run_polling()
+
         except Exception as err:
             logger_error.exception(err)
 
