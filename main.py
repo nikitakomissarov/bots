@@ -1,5 +1,6 @@
 import json
-from telegram.ext import Application, CommandHandler, MessageHandler, filters
+import asyncio
+from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
 from dotenv import dotenv_values
 from google.cloud import dialogflow
 import logging
@@ -7,8 +8,8 @@ from logging.handlers import TimedRotatingFileHandler
 
 config = dotenv_values('.env')
 
+TG_CHAT_ID = config['TG_CHAT_ID']
 TOKEN = config['TOKEN']
-SESSION_ID = config['CHAT_ID']
 GOOGLE_APPLICATION_CREDENTIALS = config['GOOGLE_APPLICATION_CREDENTIALS']
 TRAINING_PHRASES = config['TRAINING_PHRASES']
 
@@ -16,16 +17,30 @@ with open(TRAINING_PHRASES, "r") as phrases_file:
   training_phrases_parts = phrases_file.read()
   training_phrases_parts = json.loads(training_phrases_parts)
 
-
 with open(GOOGLE_APPLICATION_CREDENTIALS, "r") as my_file:
     credentials = my_file.read()
     credentials = json.loads(credentials)
 
-logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger('Logger')
 logger_info = logging.getLogger('loggerinfo')
 logger_error = logging.getLogger("loggererror")
+
 handler = TimedRotatingFileHandler("app.log", when='D', interval=30, backupCount=1)
 handler_format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+class TelegramLogsHandler(logging.Handler):
+
+    def __init__(self, bot):
+        super().__init__()
+        self.bot = bot
+
+    def emit(self, record):
+        log_entry = self.format(record)
+        asyncio.create_task(self.send_log_message(log_entry))
+
+    async def send_log_message(self, log_entry):
+        await self.bot.send_message(chat_id=TG_CHAT_ID, text=log_entry)
+
 
 def detect_intent_texts(project_id, session_id, texts, language_code):
     session_client = dialogflow.SessionsClient()
@@ -58,7 +73,7 @@ def detect_intent_texts(project_id, session_id, texts, language_code):
 async def start(update, context):
     await update.message.reply_text("The bot's been started")
 
-async def echo(update, context):
+async def echo(update, context: ContextTypes.DEFAULT_TYPE):
     try:
         language_code = update.message.from_user.language_code
         text = update.message.text
@@ -68,12 +83,15 @@ async def echo(update, context):
             google_reply = google_reply
         else:
             google_reply = 'Я вас не понимаю'
-        await update.message.reply_text(google_reply)
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=google_reply)
+
     except Exception as err:
-        logger_error.exception(err)
+        logger_error.error(err, exc_info=True)
 
 def main():
     if __name__ == '__main__':
+        application = Application.builder().token(TOKEN).build()
+        bot = application.bot
 
         handler.setFormatter(handler_format)
 
@@ -83,18 +101,19 @@ def main():
         logger_error.setLevel(logging.ERROR)
         logger_error.addHandler(handler)
 
+        telegram_notification_handler = TelegramLogsHandler(bot)
+        telegram_notification_handler.setFormatter(handler_format)
+        logger_error.addHandler(telegram_notification_handler)
+
         logger_info.info("here we go")
+
         try:
-            application = Application.builder().token(TOKEN).build()
-
             application.add_handler(CommandHandler('start', start))
-
             application.add_handler(MessageHandler(filters.TEXT, echo))
-
             application.run_polling()
 
         except Exception as err:
-            logger_error.exception(err)
+            logger_error.error(err, exc_info=True)
 
 if __name__ == '__main__':
     main()
