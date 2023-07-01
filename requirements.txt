@@ -1,0 +1,5 @@
+﻿asyncio==3.4.3
+python-dotenv==0.21.0
+python-telegram-bot==20.3
+vk-api==11.9.9
+google-cloud-dialogflow==2.19.1
