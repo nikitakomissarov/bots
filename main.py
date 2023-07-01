@@ -9,7 +9,7 @@ from logging.handlers import TimedRotatingFileHandler
 config = dotenv_values('.env')
 
 TG_CHAT_ID = config['TG_CHAT_ID']
-TOKEN = config['TOKEN']
+TG_TOKEN = config['TG_TOKEN']
 GOOGLE_APPLICATION_CREDENTIALS = config['GOOGLE_APPLICATION_CREDENTIALS']
 TRAINING_PHRASES = config['TRAINING_PHRASES']
 
@@ -90,7 +90,7 @@ async def echo(update, context: ContextTypes.DEFAULT_TYPE):
 
 def main():
     if __name__ == '__main__':
-        application = Application.builder().token(TOKEN).build()
+        application = Application.builder().token(TG_TOKEN).build()
         bot = application.bot
 
         handler.setFormatter(handler_format)

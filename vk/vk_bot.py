@@ -13,7 +13,7 @@ config = dotenv_values('.env')
 
 TG_TOKEN = config['TG_TOKEN']
 TG_CHAT_ID = config['TG_CHAT_ID']
-VK_TOKEN = config['TOKEN']
+VK_TOKEN = config['VK_TOKEN']
 GOOGLE_APPLICATION_CREDENTIALS = config['GOOGLE_APPLICATION_CREDENTIALS']
 
 logger_info = logging.getLogger('loggerinfo')
