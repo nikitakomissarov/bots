@@ -11,14 +11,14 @@ from telegram.ext import Application
 
 config = dotenv_values('.env')
 
-TG_TOKEN = config['TG_TOKEN']
+TG_LOGGER_TOKEN = config['TG_LOGGER_TOKEN']
 TG_CHAT_ID = config['TG_CHAT_ID']
 VK_TOKEN = config['VK_TOKEN']
 GOOGLE_APPLICATION_CREDENTIALS = config['GOOGLE_APPLICATION_CREDENTIALS']
 
 logger_info = logging.getLogger('loggerinfo')
 logger_error = logging.getLogger("loggererror")
-handler = TimedRotatingFileHandler("app.log", when='D', interval=30, backupCount=1)
+handler = TimedRotatingFileHandler("vk/app.log", when='D', interval=30, backupCount=1)
 handler_format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 
@@ -113,7 +113,7 @@ async def main():
     longpoll = VkLongPoll(vk_session)
     vk = vk_session.get_api()
 
-    application = Application.builder().token(TG_TOKEN).build()
+    application = Application.builder().token(TG_LOGGER_TOKEN).build()
     bot = application.bot
 
     telegram_notification_handler = TelegramLogsHandler(bot)
