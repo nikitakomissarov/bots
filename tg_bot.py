@@ -51,7 +51,6 @@ def main():
     logger_error.addHandler(telegram_notification_handler)
 
     try:
-
         with open(GOOGLE_APPLICATION_CREDENTIALS, "r") as google_file:
             credentials = google_file.read()
             credentials = json.loads(credentials)
