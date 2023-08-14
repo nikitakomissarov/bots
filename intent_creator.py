@@ -16,14 +16,13 @@ logger_error = logging.getLogger("loggererror")
 
 
 def create_intent(project_id, training_phrases_parts):
-    for section in training_phrases_parts:
-        display_name = section
-        training_phrases_part = training_phrases_parts[display_name]['questions']
-
-        message_texts = [training_phrases_parts[display_name]['answer']]
+    for section in training_phrases_parts.items():
+        display_name, bufer_tuple = section
+        questions, answer = bufer_tuple.items()
+        _, training_phrases_part = questions
+        _, message_texts = answer
 
         intents_client = dialogflow.IntentsClient()
-
         parent = dialogflow.AgentsClient.agent_path(project_id)
 
         training_phrases = []
@@ -61,15 +60,17 @@ def main():
         telegram_notification_handler.setFormatter(handler_format)
         logger_error.addHandler(telegram_notification_handler)
 
-        with open(GOOGLE_APPLICATION_CREDENTIALS, "r") as my_file:
-            credentials = my_file.read()
+        with open(GOOGLE_APPLICATION_CREDENTIALS, "r") as google_file:
+            credentials = google_file.read()
             credentials = json.loads(credentials)
+            _, _, id_tuple, _, _ = credentials.items()
+            _, project_id = id_tuple
 
         with open(TRAINING_PHRASES, "r", encoding='utf-8') as phrases_file:
             training_phrases_parts = phrases_file.read()
             training_phrases_parts = json.loads(training_phrases_parts)
 
-        create_intent(credentials['quota_project_id'], training_phrases_parts)
+        create_intent(project_id, training_phrases_parts)
 
     except Exception as err:
         logger_error.error(err, exc_info=True)
