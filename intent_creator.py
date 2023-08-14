@@ -72,8 +72,8 @@ def main():
 
         create_intent(project_id, training_phrases_parts)
 
-    except Exception as err:
-        logger_error.error(err, exc_info=True)
+    except Exception:
+        logger_error.exception('Error')
 
 
 if __name__ == '__main__':
