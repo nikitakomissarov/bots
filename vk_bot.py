@@ -34,16 +34,11 @@ class Communication:
                 message=google_reply.fulfillment_text,
                 random_id=random.randint(1, 1000)
             )
-        else:
-            pass
 
     def handle_vk_events(self, longpoll, vk):
         for event in longpoll.listen():
-            if event.type == VkEventType.MESSAGE_NEW:
-                if event.to_me:
-                    self.reply(event, vk)
-                else:
-                    continue
+            if event.type == VkEventType.MESSAGE_NEW and event.to_me:
+                self.reply(event, vk)
 
 
 def main():
