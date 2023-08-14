@@ -21,7 +21,10 @@ class Communication:
         self.project_id = project_id
 
     async def start(self, update, context: ContextTypes.DEFAULT_TYPE):
-        await update.message.reply_text("The bot's been started")
+        try:
+            await update.message.reply_text("The bot's been started")
+        except Exception:
+            logger_error.exception('Error')
 
     async def reply(self, update, context: ContextTypes.DEFAULT_TYPE):
         try:
@@ -33,9 +36,6 @@ class Communication:
             )
             await context.bot.send_message(chat_id=update.effective_chat.id,
                                            text=google_reply.fulfillment_text)
-
-        except Exception as err:
-            logger_error.error(err, exc_info=True)
 
 
 def main():
@@ -66,8 +66,8 @@ def main():
 
         logger_info.info("here we go")
 
-    except Exception as err:
-        logger_error.error(err, exc_info=True)
+    except Exception:
+        logger_error.exception('Error')
 
 
 if __name__ == '__main__':
