@@ -27,6 +27,9 @@ def create_intent(project_id, training_phrases_parts):
 
         training_phrases = []
 
+        for question in training_phrases_part:
+            part = dialogflow.Intent.TrainingPhrase.Part(text=question)
+
             training_phrase = dialogflow.Intent.TrainingPhrase(parts=[part])
             training_phrases.append(training_phrase)
 
@@ -37,7 +40,6 @@ def create_intent(project_id, training_phrases_parts):
             display_name=display_name, training_phrases=training_phrases, messages=[message]
         )
         language_code = 'ru'
-
         response = intents_client.create_intent(
             request={"parent": parent, "intent": intent, "language_code": language_code}
         )
