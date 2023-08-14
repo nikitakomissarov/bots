@@ -17,8 +17,8 @@ logger_error = logging.getLogger("loggererror")
 
 class Communication:
 
-    def __init__(self, credentials):
-        self.credentials = credentials
+    def __init__(self, project_id):
+        self.project_id = project_id
 
     async def start(self, update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("The bot's been started")
@@ -29,7 +29,7 @@ class Communication:
             text = update.message.text
             session_id = update.message.chat['id']
             google_reply = detect_intent_texts(
-                self.credentials['quota_project_id'], session_id, text, language_code
+                self.project_id, session_id, text, language_code
             )
             await context.bot.send_message(chat_id=update.effective_chat.id,
                                            text=google_reply.fulfillment_text)
@@ -54,10 +54,12 @@ def main():
         with open(GOOGLE_APPLICATION_CREDENTIALS, "r") as google_file:
             credentials = google_file.read()
             credentials = json.loads(credentials)
+            _, _, id_tuple, _, _ = credentials.items()
+            _, project_id = id_tuple
 
         application = Application.builder().token(TG_TOKEN).build()
-        filled_handlers = Communication(credentials)
 
+        filled_handlers = Communication(project_id)
         application.add_handler(CommandHandler('start', filled_handlers.start))
         application.add_handler(MessageHandler(filters.TEXT, filled_handlers.reply))
         application.run_polling()
