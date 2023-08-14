@@ -36,6 +36,8 @@ class Communication:
             )
             await context.bot.send_message(chat_id=update.effective_chat.id,
                                            text=google_reply.fulfillment_text)
+        except Exception:
+            logger_error.exception('Error')
 
 
 def main():
