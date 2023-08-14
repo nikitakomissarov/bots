@@ -26,8 +26,6 @@ def create_intent(project_id, training_phrases_parts):
         parent = dialogflow.AgentsClient.agent_path(project_id)
 
         training_phrases = []
-        for a in training_phrases_part:
-            part = dialogflow.Intent.TrainingPhrase.Part(text=a)
 
             training_phrase = dialogflow.Intent.TrainingPhrase(parts=[part])
             training_phrases.append(training_phrase)
