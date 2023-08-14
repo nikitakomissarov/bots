@@ -19,14 +19,14 @@ logger_error = logging.getLogger("loggererror")
 
 class Communication:
 
-    def __init__(self, credentials):
-        self.credentials = credentials
+    def __init__(self, project_id):
+        self.project_id = project_id
 
     def reply(self, event, vk):
         language_code = 'ru'
         text = event.text
         session_id = event.peer_id
-        google_reply = detect_intent_texts(self.credentials['quota_project_id'],
+        google_reply = detect_intent_texts(self.project_id,
                                            session_id, text, language_code)
         if not google_reply.intent.is_fallback:
             vk.messages.send(
@@ -58,18 +58,25 @@ def main():
     telegram_notification_handler.setFormatter(handler_format)
     logger_error.addHandler(telegram_notification_handler)
 
-    try:
-        with open(GOOGLE_APPLICATION_CREDENTIALS, "r") as my_file:
-            credentials = my_file.read()
-            credentials = json.loads(credentials)
-        filled_handler = Communication(credentials)
-        vk_session = vk_api.VkApi(token=VK_TOKEN)
-        longpoll = VkLongPoll(vk_session)
-        vk = vk_session.get_api()
-        logger_info.info("here we go")
-        filled_handler.handle_vk_events(longpoll, vk)
-    except Exception as err:
-        logger_error.error(err, exc_info=True)
+    while True:
+        try:
+            with open(GOOGLE_APPLICATION_CREDENTIALS, "r") as google_file:
+                credentials = google_file.read()
+                credentials = json.loads(credentials)
+                _, _, id_tuple, _, _ = credentials.items()
+                _, project_id = id_tuple
+
+            filled_handler = Communication(project_id)
+
+            vk_session = vk_api.VkApi(token=VK_TOKEN)
+            longpoll = VkLongPoll(vk_session)
+            vk = vk_session.get_api()
+
+            logger_info.info("here we go")
+            filled_handler.handle_vk_events(longpoll, vk)
+
+        except Exception:
+            logger_error.exception('Error')
 
 
 if __name__ == '__main__':
