@@ -2,6 +2,7 @@ import json
 import logging
 from logging.handlers import TimedRotatingFileHandler
 from dotenv import dotenv_values
+from functools import partial
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
 from intent_detection import detect_intent_texts
 from logger import TelegramLogsHandler, bot_logger
@@ -15,29 +16,25 @@ logger_info = logging.getLogger('loggerinfo')
 logger_error = logging.getLogger("loggererror")
 
 
-class Communication:
+async def start(update, context: ContextTypes.DEFAULT_TYPE):
+    try:
+        await update.message.reply_text("The bot's been started")
+    except Exception:
+        logger_error.exception('Error')
 
-    def __init__(self, project_id):
-        self.project_id = project_id
 
-    async def start(self, update, context: ContextTypes.DEFAULT_TYPE):
-        try:
-            await update.message.reply_text("The bot's been started")
-        except Exception:
-            logger_error.exception('Error')
-
-    async def reply(self, update, context: ContextTypes.DEFAULT_TYPE):
-        try:
-            language_code = update.message.from_user.language_code
-            text = update.message.text
-            session_id = update.message.chat['id']
-            google_reply = detect_intent_texts(
-                self.project_id, session_id, text, language_code
-            )
-            await context.bot.send_message(chat_id=update.effective_chat.id,
-                                           text=google_reply.fulfillment_text)
-        except Exception:
-            logger_error.exception('Error')
+async def reply(project_id, update, context: ContextTypes.DEFAULT_TYPE):
+    try:
+        language_code = update.message.from_user.language_code
+        text = update.message.text
+        session_id = update.message.chat.id
+        google_reply = detect_intent_texts(
+            project_id, session_id, text, language_code
+        )
+        await context.bot.send_message(chat_id=update.effective_chat.id,
+                                       text=google_reply.fulfillment_text)
+    except Exception:
+        logger_error.exception('Error')
 
 
 def main():
@@ -61,9 +58,8 @@ def main():
 
         application = Application.builder().token(TG_TOKEN).build()
 
-        filled_handlers = Communication(project_id)
-        application.add_handler(CommandHandler('start', filled_handlers.start))
-        application.add_handler(MessageHandler(filters.TEXT, filled_handlers.reply))
+        application.add_handler(CommandHandler('start', start))
+        application.add_handler(MessageHandler(filters.TEXT, partial(reply, project_id)))
         application.run_polling()
 
         logger_info.info("here we go")
