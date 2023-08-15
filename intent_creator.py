@@ -2,7 +2,6 @@ from google.cloud import dialogflow
 import json
 from dotenv import dotenv_values
 import logging
-from logger import TelegramLogsHandler, bot_logger
 from logging.handlers import TimedRotatingFileHandler
 from logger import TelegramLogsHandler, bot_logger
 
