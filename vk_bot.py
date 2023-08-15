@@ -17,28 +17,24 @@ logger_info = logging.getLogger('loggerinfo')
 logger_error = logging.getLogger("loggererror")
 
 
-class Communication:
+def reply(event, vk, project_id):
+    language_code = 'ru'
+    text = event.text
+    session_id = event.peer_id
+    google_reply = detect_intent_texts(project_id,
+                                       session_id, text, language_code)
+    if not google_reply.intent.is_fallback:
+        vk.messages.send(
+            user_id=event.user_id,
+            message=google_reply.fulfillment_text,
+            random_id=random.randint(1, 1000)
+        )
 
-    def __init__(self, project_id):
-        self.project_id = project_id
 
-    def reply(self, event, vk):
-        language_code = 'ru'
-        text = event.text
-        session_id = event.peer_id
-        google_reply = detect_intent_texts(self.project_id,
-                                           session_id, text, language_code)
-        if not google_reply.intent.is_fallback:
-            vk.messages.send(
-                user_id=event.user_id,
-                message=google_reply.fulfillment_text,
-                random_id=random.randint(1, 1000)
-            )
-
-    def handle_vk_events(self, longpoll, vk):
-        for event in longpoll.listen():
-            if event.type == VkEventType.MESSAGE_NEW and event.to_me:
-                self.reply(event, vk)
+def handle_vk_events(longpoll, vk, project_id):
+    for event in longpoll.listen():
+        if event.type == VkEventType.MESSAGE_NEW and event.to_me:
+            reply(event, vk, project_id)
 
 
 def main():
@@ -61,14 +57,12 @@ def main():
                 _, _, id_tuple, _, _ = credentials.items()
                 _, project_id = id_tuple
 
-            filled_handler = Communication(project_id)
-
             vk_session = vk_api.VkApi(token=VK_TOKEN)
             longpoll = VkLongPoll(vk_session)
             vk = vk_session.get_api()
 
             logger_info.info("here we go")
-            filled_handler.handle_vk_events(longpoll, vk)
+            handle_vk_events(longpoll, vk, project_id)
 
         except Exception:
             logger_error.exception('Error')
