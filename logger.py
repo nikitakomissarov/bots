@@ -8,7 +8,7 @@ config = dotenv_values('.env')
 TG_CHAT_ID = config['TG_CHAT_ID']
 TG_LOGGER_TOKEN = config['TG_LOGGER_TOKEN']
 
-bot_logger = Application.builder().token(TG_LOGGER_TOKEN).build().bot
+logger_bot = Application.builder().token(TG_LOGGER_TOKEN).build().bot
 
 
 class TelegramLogsHandler(logging.Handler):

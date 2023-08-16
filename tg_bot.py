@@ -5,7 +5,7 @@ from dotenv import dotenv_values
 from functools import partial
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
 from intent_detection import detect_intent_texts
-from logger import TelegramLogsHandler, bot_logger
+from logger import TelegramLogsHandler, logger_bot
 
 
 config = dotenv_values('.env')
@@ -45,7 +45,7 @@ def main():
     logger_info.addHandler(handler)
     logger_error.setLevel(logging.ERROR)
     logger_error.addHandler(handler)
-    telegram_notification_handler = TelegramLogsHandler(bot_logger)
+    telegram_notification_handler = TelegramLogsHandler(logger_bot)
     telegram_notification_handler.setFormatter(handler_format)
     logger_error.addHandler(telegram_notification_handler)
 
