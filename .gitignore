@@ -1,2 +1,4 @@
 .env
 app.log
+.idea
+_pycache_
