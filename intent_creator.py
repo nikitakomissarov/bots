@@ -3,7 +3,7 @@ import json
 from dotenv import dotenv_values
 import logging
 from logging.handlers import TimedRotatingFileHandler
-from logger import TelegramLogsHandler, bot_logger
+from logger import TelegramLogsHandler, logger_bot
 
 
 config = dotenv_values('.env')
@@ -16,8 +16,8 @@ logger_error = logging.getLogger("loggererror")
 
 def create_intent(project_id, training_phrases_parts):
     for section in training_phrases_parts.items():
-        display_name, bufer_tuple = section
-        questions, answer = bufer_tuple.items()
+        display_name, dialogue_tuple = section
+        questions, answer = dialogue_tuple.items()
         _, training_phrases_part = questions
         _, message_texts = answer
 
@@ -55,7 +55,7 @@ def main():
         logger_info.addHandler(handler)
         logger_error.setLevel(logging.ERROR)
         logger_error.addHandler(handler)
-        telegram_notification_handler = TelegramLogsHandler(bot_logger)
+        telegram_notification_handler = TelegramLogsHandler(logger_bot)
         telegram_notification_handler.setFormatter(handler_format)
         logger_error.addHandler(telegram_notification_handler)
 
